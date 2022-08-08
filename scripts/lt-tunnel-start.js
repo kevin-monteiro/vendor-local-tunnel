@@ -19,4 +19,6 @@ const tunnelArguments = {
     } catch (error) {
         console.log(error);
     }
+    // exit this script once tunnel is started
+    process.exit(0)
 })();

@@ -101,3 +101,7 @@ dist
 # TernJS port file
 .tern-port
 dist/
+
+.DS_Store
+.lambdatest/
+tunnel_local_pid

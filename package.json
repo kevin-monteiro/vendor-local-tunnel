@@ -6,11 +6,12 @@
   "scripts": {
     "bs-tunnel:start": "node ./scripts/bs-tunnel-start.js",
     "lt-tunnel:start": "node ./scripts/lt-tunnel-start.js",
+    "tunnel:start": "node ./scripts/tunnel-start.js",
     "tunnel:stop": "node ./scripts/tunnel-stop.js",
     "test": "node test.js"
   },
   "devDependencies": {
-    "@lambdatest/node-tunnel": "3.0.7",
+    "@lambdatest/node-tunnel": "3.0.12",
     "browserstack-local": "1.5.1",
     "selenium-webdriver": "4.1.1"
   }

@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  # your local test system
+  test-server:
+    container_name: test.com
+    healthcheck:
+      interval: 10s
+      start_period: 5s
+      test: |
+        node --eval '
+          require("http")
+            .get("http://localhost:8000/", (res) => {
+              console.log(res.statusCode);
+              res
+                .on("error", (err) => { throw err; })
+                .on("close", () => { process.exitCode = res.statusCode >= 400 ? 1 : 0 })
+                .pipe(process.stdout);
+            });
+        '
+      timeout: 3s
+    image: 'crccheck/hello-world'
+    ports:
+      - '8000:8000'
+    restart: on-failure
+
+  nodejs:
+    image: 'node:18.13.0-slim'
+    platform: linux/amd64
+    working_dir: '/opt/app'
+    environment:
+      - DOCKER=true
+    depends_on:
+      test-server:
+        condition: service_started
+    volumes:
+      - './:/opt/app'

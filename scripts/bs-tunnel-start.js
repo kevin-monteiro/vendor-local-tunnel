@@ -1,11 +1,13 @@
 const { Local } = require('browserstack-local');
 const  { writeFileSync } = require('fs');
 
-const pidFile = "tunnel_local_pid";
+const pidFile = "debug/bs_tunnel.pid";
+const { BROWSERSTACK_KEY, TUNNEL } = process.env;
 
 const tunnelArguments = {
-    key: process.env.BROWSERSTACK_KEY,
-    logFile: 'bs_tunnel.log',
+    key: BROWSERSTACK_KEY,
+    localIdentifier: TUNNEL,
+    logFile: 'debug/bs_tunnel.log',
 };
 
 async function startBrowserStackTunnel() {
@@ -23,7 +25,7 @@ async function startBrowserStackTunnel() {
 }
 
 // Async/Await Style
-(async function() {
+(async () => {
     const local = await startBrowserStackTunnel();
     const pid = local.pid;
     console.log("Started local BS tunnel with pid :", pid);

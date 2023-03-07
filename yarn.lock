@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@lambdatest/node-tunnel@3.0.7":
-  version "3.0.7"
-  resolved "https://registry.yarnpkg.com/@lambdatest/node-tunnel/-/node-tunnel-3.0.7.tgz#07530b46660c7ba21cf782d8bec642b963c65fa5"
-  integrity sha512-Rx4IEYau2xdiG35kWWSCp88C6cYO6l4445Z3baURx4UWYCZ0rsuV17KVZiB3/S3JoKO4dqVbvDZXKF5Xs8ni/Q==
+"@lambdatest/node-tunnel@3.0.12":
+  version "3.0.12"
+  resolved "https://registry.yarnpkg.com/@lambdatest/node-tunnel/-/node-tunnel-3.0.12.tgz#7afb37bf396eeabaf807ec116e12ff8690f937ec"
+  integrity sha512-7s9VQxewND7qNhIpaId65dLolzFYkQp8OCP+upIKjtfDWYZ8QTQhYF2VGQu8a5TIm9VFqfumVF46OcoRhWkg2g==
   dependencies:
     axios "^0.26.0"
     get-port "^1.0.0"

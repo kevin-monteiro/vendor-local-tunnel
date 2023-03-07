@@ -1,22 +1,15 @@
-const { existsSync, readFileSync } = require("fs");
 const childProcess = require('child_process')
 
-const pidFile = "tunnel_local_pid";
-
-const readPidFile = () => {
-    if (existsSync(pidFile)) {
-        return readFileSync(pidFile, "UTF-8");
-    }
-    return undefined;
-};
-
 const stop = () => {
-    const pid = readPidFile();
-    if (pid) {
-        console.log("Stopping local tunnel with pid :", pid);
-        //process.kill(pid);
-        childProcess.exec('kill -9 ' + pid);
-    }
+    ["BrowserStackLocal", "LT"].forEach(process => {
+        try {
+            childProcess.exec(`pkill -f ${process}`);
+        } catch (e) {
+            console.log("Error while killing the tunnel PID  :\n" + e);
+        }
+    })
 };
 
-stop();
+(() => {
+    stop();
+})();

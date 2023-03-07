@@ -1,0 +1,8 @@
+export BROWSERSTACK_USER=YOUR_BS_username
+export BROWSERSTACK_KEY=YOUR_BS_KEY
+
+export LAMBDATEST_USER=Your_LT_username
+export LAMBDATEST_KEY=Your_LT_key
+
+export TUNNEL
+TUNNEL=$($RANDOM | md5sum | head -c 20)

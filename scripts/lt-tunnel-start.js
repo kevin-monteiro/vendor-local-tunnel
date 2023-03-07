@@ -1,24 +1,29 @@
-const lambdaTunnel = require('@lambdatest/node-tunnel');
+const lambdaTunnel = require('@lambdatest/node-tunnel/lib/tunnel');
 
-const pidFile = "tunnel_local_pid";
-const tunnelInstance = new lambdaTunnel();
+const { LAMBDATEST_KEY, LAMBDATEST_USER, TUNNEL } = process.env;
 
-// Replace <lambdatest-user> with your user and <lambdatest-accesskey> with your key.
+const pidFile = "debug/lt_tunnel.pid";
 const tunnelArguments = {
-    user: process.env.LAMBDATEST_USER,
-    key: process.env.LAMBDATEST_KEY,
+    user: LAMBDATEST_USER,
+    key: LAMBDATEST_KEY,
+    tunnelName: TUNNEL,
     pidFile,
-    logFile: 'lt-tunnel.log'
+    logFile: 'debug/lt-tunnel.log',
+    detachedMode: "true"
 };
 
 // Async/Await Style
-(async function() {
-    try {
-        await tunnelInstance.start(tunnelArguments);
-        console.log('Tunnel is Running Successfully');
-    } catch (error) {
-        console.log(error);
-    }
-    // exit this script once tunnel is started
-    process.exit(0)
+(async () => {
+    const tunnelInstance = new lambdaTunnel();
+    return new Promise((resolve, reject) => {
+        tunnelInstance.start(tunnelArguments, (error) => {
+            if (tunnelInstance.isRunning()) {
+                console.log('Tunnel is Running Successfully');
+                resolve(tunnelInstance);
+            } else {
+                const msg = error ? error.message : 'Unknown Error..';
+                reject(new Error(`Local Lambda tunnel starting failed: \n ${msg}`));
+            }
+        });
+    });
 })();
